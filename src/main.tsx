@@ -1,36 +1,56 @@
-import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
 import './index.css'
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
+import App from './App'
+import { Client, Databases, Account } from 'appwrite'
+import { ChakraProvider, extendTheme, theme as origTheme } from '@chakra-ui/react'
 import SidebarWithHeader from './components/SidebarWithHeader'
-import NotFound from './pages/NotFound'
 
-const colors = {}
+const api = new Client()
 
-const theme = extendTheme({ colors })
+api
+  .setEndpoint(import.meta.env.VITE_APPWRITE_API_ENDPOINT)
+  .setProject(import.meta.env.VITE_APPWRITE_PROJECT_ID)
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='/' element={<App />} errorElement={ui(<NotFound />)}>
-      <Route path='/schoonmaak' element={<App />} />
-    
-      <Route path='/auth' element={<App />}>
+const db = new Databases(api)
+const account = new Account(api)
 
-      </Route>
-    </Route>
-  )
-)
+window.api = api
+window.db = db
+window.account = account
 
-function ui(node: React.ReactNode) {
-  return <SidebarWithHeader>{node}</SidebarWithHeader>
+const chakraTheme = extendTheme({ 
+  fonts: {
+    heading: 'monospace'
+  },
+  components: {
+    Alert: {
+      variants: {
+        solid: (props: any) => {
+          const { colorScheme } = props
+          if (colorScheme !== "blue") {
+            // @ts-ignore
+            return origTheme.components.Alert.variants.solid(props)
+          }
+          return {
+            container: {
+              bg: `purple.500`,
+            },
+          }
+        }
+      }
+    }
+  }
+})
+
+function ui(node: () => JSX.Element) {
+  return <SidebarWithHeader>{node()}</SidebarWithHeader>
 }
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <ChakraProvider theme={theme}>
-      <RouterProvider router={router} />
-    </ChakraProvider>
+    <ChakraProvider theme={chakraTheme}>
+      <App/>
+    </ChakraProvider>    
   </React.StrictMode>
 )

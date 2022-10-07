@@ -1,7 +1,32 @@
-import { Heading } from '@chakra-ui/react';
+import { Box, Center, Heading, Text, Button } from '@chakra-ui/react';
+import { useLocation } from 'wouter';
 
 export default function NotFound() {
-    return <Heading as="h1" size="4xl">
-        404: Not Found!
-    </Heading>
+  const [_, setLocation] = useLocation()
+
+  return <Box textAlign="center" py={10} px={6}>
+  <Heading
+    display="inline-block"
+    as="h2"
+    size="4xl"
+    bgGradient="linear(to-r, purple.400, purple.600)"
+    backgroundClip="text">
+    404
+  </Heading>
+  <Text fontSize="18px" mt={3} mb={2}>
+    😔 Page Not Found 😔
+  </Text>
+  <Text color={'gray.500'} mb={6}>
+    The page you're looking for does not seem to exist
+  </Text>
+
+  <Button
+    colorScheme="purple"
+    bgGradient="linear(to-r, purple.600, purple.500, purple.400)"
+    color="white"
+    onClick={() => setLocation('/')}
+    variant="solid">
+    Go to Home
+  </Button>
+</Box>
 }
