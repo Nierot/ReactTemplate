@@ -4,6 +4,15 @@ name: Build
 steps:
 - name: build
   image: node
+  environment:
+    VITE_APPWRITE_PROJECT_ID:
+      from_secret: VITE_APPWRITE_PROJECT_ID
+    VITE_APPWRITE_API_ENDPOINT:
+      from_secret: VITE_APPWRITE_API_ENDPOINT
+    VITE_APPWRITE_COLLECTION_ID:
+      from_secret: VITE_APPWRITE_COLLECTION_ID
+    VITE_APPWRITE_USER_ICON_BUCKET_ID:
+      from_secret: VITE_APPWRITE_USER_ICON_BUCKET_ID
   commands:
   - npm install
   - npm run build
