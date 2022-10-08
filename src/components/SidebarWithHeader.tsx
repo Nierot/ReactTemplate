@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import {
   IconButton,
   Avatar,
@@ -28,11 +28,20 @@ import {
   FiHome,
   FiMenu,
   FiChevronDown,
+  FiSettings,
 } from 'react-icons/fi';
 import { AiOutlineSchedule } from 'react-icons/ai'
 import { MdOutlineInventory2 } from 'react-icons/md'
 import { IconType } from 'react-icons';
 import { Link as NavLink, useLocation } from 'wouter'
+import config from '../../config.json'
+import { Models } from 'appwrite';
+
+interface SidebarWithHeaderProps {
+  profile: Models.Account<Models.Preferences>
+  icon: URL
+  children: ReactNode
+}
 
 interface LinkItemProps {
   name: string;
@@ -43,11 +52,10 @@ const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', link: '/', icon: FiHome },
   { name: 'Cleaning Schedule', link: '/cleaning-schedule', icon: AiOutlineSchedule },
   { name: 'Inventory', link: '/inventory', icon: MdOutlineInventory2 },
-  // { name: 'Favourites', icon: FiStar },
-  // { name: 'Settings', icon: FiSettings },
+  { name: 'Settings', link: '/settings', icon: FiSettings },
 ];
 
-export default function SidebarWithHeader({ children }: { children: ReactNode }) {
+export default function SidebarWithHeader({ profile, children, icon }: SidebarWithHeaderProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
@@ -68,7 +76,7 @@ export default function SidebarWithHeader({ children }: { children: ReactNode })
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
-      <MobileNav onOpen={onOpen} />
+      <MobileNav onOpen={onOpen} profile={profile} icon={icon} />
       <Box ml={{ base: 0, md: 60 }} p="4">
         {children}
       </Box>
@@ -93,7 +101,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          {import.meta.env.VITE_APP_SHORT_NAME || 'VITE_APP_SHORT_NAME'}
+          {config.app.shortName || 'config.app.shortName'}
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
@@ -144,8 +152,10 @@ const NavItem = ({ icon, children, link, ...rest }: NavItemProps) => {
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
+  profile: Models.Account<Models.Preferences>
+  icon: URL
 }
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+const MobileNav = ({ onOpen, profile, icon, ...rest }: MobileProps) => {
   const { toggleColorMode } = useColorMode()
   const [_, setLocation] = useLocation()
 
@@ -178,7 +188,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold">
-        {import.meta.env.VITE_APP_SHORT_NAME || 'VITE_APP_SHORT_NAME'}
+        {config.app.shortName || 'config.app.shortName'}
       </Text>
 
       <HStack spacing={{ base: '0', md: '6' }}>
@@ -191,18 +201,16 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <HStack>
                 <Avatar
                   size={'sm'}
-                  src={
-                    'https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9'
-                  }
+                  src={ icon.href ?? config.account.fallbackUserIcon }
                 />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">Justina Clark</Text>
+                  <Text fontSize="sm">{profile.name}</Text>
                   <Text fontSize="xs" color="gray.600">
-                    Admin
+                    {profile.prefs.role ?? 'User'}
                   </Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
@@ -215,6 +223,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               borderColor={useColorModeValue('gray.200', 'gray.700')}>
               <MenuItem onClick={() => setLocation('/profile')}>Profile</MenuItem>
               <MenuItem onClick={() => setLocation('/settings')}>Settings</MenuItem>
+              <MenuItem onClick={() => setLocation('/about')}>About</MenuItem>
               <MenuItem onClick={() => toggleColorMode()}>Toggle color</MenuItem>
               <MenuDivider />
               <MenuItem onClick={() => signOut()}>Sign out</MenuItem>

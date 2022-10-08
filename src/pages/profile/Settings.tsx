@@ -1,15 +1,16 @@
 import { Box, Button, Divider, FormControl, FormHelperText, FormLabel, Heading, HStack, Radio, RadioGroup, Stack, useColorMode, useColorModeValue, useRadioGroup, useToast } from '@chakra-ui/react';
 import { useEffect, useState } from 'react'
-import { ColorSchemes, getUserPreferences, setUserPreferences, UserPreferences } from '../utils/user';
-import { setTitle } from '../utils/utils';
-import LoadingPage from './LoadingPage';
+import { ColorSchemes, getUserPreferences, setUserPreferences, UserPreferences } from '../../utils/user';
+import { getConfig, setTitle } from '../../utils/utils';
+import LoadingPage from '../LoadingPage';
 
 const pages = {
   'Home': '/',
   'Cleaning Schedule': '/cleaning-schedule',
   'Inventory': '/inventory',
   'Profile': '/profile',
-  'Settings': '/settings'
+  'Settings': '/settings',
+  'About': '/about',
 }
 
 function getKeyByValue(object: any, value: any) {
@@ -51,7 +52,7 @@ export default function Settings() {
     setUserPreferences({ defaultLocation: p })
   }, [defaultPage])
 
-  const load = () => setTimeout(() => setLoading(false), 1000)
+  const load = () => setTimeout(() => setLoading(false), getConfig().app.minimalLoadingTime)
 
   const save = () => {
     toast({

@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import App from './App'
-import { Client, Databases, Account } from 'appwrite'
+import { Client, Databases, Account, Storage, Avatars } from 'appwrite'
 import { ChakraProvider, extendTheme, theme as origTheme } from '@chakra-ui/react'
 import SidebarWithHeader from './components/SidebarWithHeader'
 
@@ -14,10 +14,14 @@ api
 
 const db = new Databases(api)
 const account = new Account(api)
+const storage = new Storage(api)
+const avatars = new Avatars(api)
 
 window.api = api
 window.db = db
 window.account = account
+window.storage = storage
+window.avatars = avatars
 
 const chakraTheme = extendTheme({ 
   fonts: {
@@ -42,10 +46,6 @@ const chakraTheme = extendTheme({
     }
   }
 })
-
-function ui(node: () => JSX.Element) {
-  return <SidebarWithHeader>{node()}</SidebarWithHeader>
-}
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

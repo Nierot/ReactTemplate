@@ -1,37 +1,47 @@
 import { ScaleFade, useColorMode } from '@chakra-ui/react';
+import { Models } from 'appwrite';
 import React, { useEffect, useState } from 'react';
 import { Route, Switch, useLocation } from 'wouter';
 import SidebarWithHeader from './components/SidebarWithHeader';
+import About from './pages/About';
 import Auth from './pages/auth/Auth';
 import ForgotPassword from './pages/auth/ForgotPassword';
 import CleaingSchedule from './pages/CleaningSchedule';
 import Index from './pages/Index';
 import LoadingPage from './pages/LoadingPage';
 import NotFound from './pages/NotFound';
-import Profile from './pages/Profile';
-import Settings from './pages/Settings';
+import EditProfile from './pages/profile/EditProfile';
+import Settings from './pages/profile/Settings';
 import { getUserPreferences, UserPreferences } from './utils/user';
+
+type UIProps = {
+  c: React.ReactNode
+}
 
 export default function App() {
   // state
   const [loading, setLoading] = useState<boolean>(true)
-  const [prefs, setPrefs]     = useState<UserPreferences>()
+  const [profile, setProfile] = useState<Models.Account<Models.Preferences>>()
+  const [icon, setIcon]       = useState<URL>()
 
   // nav
   const [_, setLocation] = useLocation()
 
-  // color
-  const { colorMode, toggleColorMode } = useColorMode()
 
   useEffect(() => {
     const load = () => setTimeout(() => setLoading(false), 2000)
 
     window.account.get()
       .then(async () => {
-        const prefs = await getUserPreferences()
-        setPrefs(prefs)
+        const profile = await window.account.get()
 
-        const d = prefs.defaultLocation
+        const d = profile.prefs.defaultLocation
+
+        setProfile(profile)
+        setIcon(window.storage.getFilePreview(
+          import.meta.env.VITE_APPWRITE_USER_ICON_BUCKET_ID,
+          profile.prefs.icon,
+        ))
 
         if (d && d !== '/') setLocation(d)
       })
@@ -47,19 +57,24 @@ export default function App() {
   if (loading) return loadingPage
 
   return <ScaleFade initialScale={0.98} in={!loading}>
-    <Switch>
-      {/* Normal Routes */}
-      <Route path="/cleaning-schedule"><SidebarWithHeader><CleaingSchedule /></SidebarWithHeader></Route>
-      <Route path="/profile"><SidebarWithHeader><Profile /></SidebarWithHeader></Route>
-      <Route path="/settings"><SidebarWithHeader><Settings /></SidebarWithHeader></Route>
-      
-      {/* Pre-auth routes */}
-      <Route path="/auth/forgot-password"><ForgotPassword /></Route>
-      <Route path="/auth"><Auth /></Route>
+    <SidebarWithHeader profile={profile!} icon={icon!}>
+      <Switch>
+        {/* Normal Routes */}
+        <Route path="/cleaning-schedule"> <CleaingSchedule /> </Route>
+        <Route path="/settings"> <Settings /> </Route>
 
-      <Route path="/"><SidebarWithHeader><Index /></SidebarWithHeader></Route>        
-      <Route><SidebarWithHeader><NotFound /></SidebarWithHeader></Route>
-    </Switch>
+        {/* User profile */}
+        <Route path="/profile"> <EditProfile /> </Route>
+        <Route path="/about"> <About /> </Route>
+
+        {/* Pre-auth routes */}
+        <Route path="/auth/forgot-password"><ForgotPassword /></Route>
+        <Route path="/auth"><Auth /></Route>
+
+        <Route path="/"> <Index /> </Route>        
+        <Route> <NotFound /> </Route>
+      </Switch>
+    </SidebarWithHeader>
   </ScaleFade>
 
 }

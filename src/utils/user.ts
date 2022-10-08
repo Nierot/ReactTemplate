@@ -3,11 +3,15 @@ export type ColorSchemes = 'light' | 'dark'
 export type UserPreferences = {
   colorScheme: ColorSchemes
   defaultLocation: string
+  icon: string
+  role: string
 }
 
 export type NewUserPreferences = {
   colorScheme?: ColorSchemes
   defaultLocation?: string
+  icon?: string
+  role?: string
 }
 
 export async function setUserPreferences(newPrefs: NewUserPreferences) {

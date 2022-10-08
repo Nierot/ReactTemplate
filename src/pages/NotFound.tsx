@@ -1,8 +1,14 @@
 import { Box, Center, Heading, Text, Button } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { useLocation } from 'wouter';
+import { setTitle } from '../utils/utils';
 
 export default function NotFound() {
   const [_, setLocation] = useLocation()
+
+  useEffect(() => {
+    setTitle('Not Found')
+  })
 
   return <Box textAlign="center" py={10} px={6}>
   <Heading
