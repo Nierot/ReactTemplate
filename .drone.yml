@@ -14,7 +14,7 @@ steps:
     VITE_APPWRITE_USER_ICON_BUCKET_ID:
       from_secret: VITE_APPWRITE_USER_ICON_BUCKET_ID
   volumes:
-  - name: deploy-folder
+  - name: deploy
     path: /
   commands:
   - npm install
@@ -32,7 +32,7 @@ steps:
       from_secret: discord_avatar_url
 
 volumes:
-- name: deploy-folder
+- name: deploy
   host:
     path:
-      from_secret: deploy-folder
+      from_secret: DEPLOY_FOLDER
