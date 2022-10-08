@@ -19,7 +19,7 @@ steps:
   commands:
   - npm install
   - pwd
-  - npm run build
+  # - npm run build
 
 - name: notify
   image: appleboy/drone-discord
