@@ -1,0 +1,19 @@
+kind: pipeline
+name: Build
+
+steps:
+- name: build
+  image: node
+  commands:
+  - npm install
+  - npm run build
+
+- name: notify
+  image: appleboy/drone-discord
+  settings:
+    webhook_id:
+      from_secret: discord_webhook_id
+    webhook_token:
+      from_secret: discord_webhook_token
+    avatar_url:
+      from_secret: discord_avatar_url
