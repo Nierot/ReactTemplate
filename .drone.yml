@@ -34,5 +34,4 @@ steps:
 volumes:
 - name: deploy
   host:
-    path:
-      from_secret: DEPLOY_FOLDER
+    path: /deploy
