@@ -1,12 +1,6 @@
 kind: pipeline
 name: Build
 
-volumes:
-- name: deploy-folder
-  host:
-    path:
-      from_secret: deploy-folder
-
 steps:
 - name: build
   image: node
@@ -36,3 +30,9 @@ steps:
       from_secret: discord_webhook_token
     avatar_url:
       from_secret: discord_avatar_url
+
+volumes:
+- name: deploy-folder
+  host:
+    path:
+      from_secret: deploy-folder
