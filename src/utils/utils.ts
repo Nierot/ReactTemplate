@@ -1,4 +1,10 @@
+import config from '../../config.json'
+
 export const setTitle = (title: string) => {
-  const prefix = import.meta.env.VITE_APP_SHORT_NAME || 'VITE_APP_SHORT_NAME'
+  const prefix = config.app.shortName || 'config.app.shortName'
   document.title = `${prefix} :: ${title}`
+}
+
+export function getConfig() {
+  return config
 }
