@@ -1,6 +1,12 @@
 kind: pipeline
 name: Build
 
+volumes:
+- name: deploy-folder
+  host:
+    path:
+      from_secret: deploy-folder
+
 steps:
 - name: build
   image: node
@@ -13,8 +19,12 @@ steps:
       from_secret: VITE_APPWRITE_COLLECTION_ID
     VITE_APPWRITE_USER_ICON_BUCKET_ID:
       from_secret: VITE_APPWRITE_USER_ICON_BUCKET_ID
+  volumes:
+  - name: deploy-folder
+    path: /
   commands:
   - npm install
+  - pwd
   - npm run build
 
 - name: notify
