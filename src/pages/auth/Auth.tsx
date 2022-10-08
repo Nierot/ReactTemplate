@@ -35,6 +35,10 @@ export default function Auth() {
     const [password, setPassword]   = useState<string>('')
     const [slogan, setSlogan]       = useState<string>(getSlogan())
     
+    const mainBg = useColorModeValue('gray.50', 'gray.800')
+    const squareBg = useColorModeValue('white', 'gray.700')
+    const textColor = useColorModeValue('gray.600', 'white')
+
     const auth = () => {
         window.account.createEmailSession(email, password)
             .then(acc => {
@@ -49,17 +53,17 @@ export default function Auth() {
         minH={'100vh'}
         align={'center'}
         justify={'center'}
-        bg={useColorModeValue('gray.50', 'gray.800')}>
+        bg={mainBg}>
         <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
             <Stack align={'center'}>
             <Heading fontSize={'4xl'}>Log in</Heading>
-            <Text fontSize={'lg'} color={'gray.600'}>
+            <Text fontSize={'lg'} color={textColor}>
                 {slogan}
             </Text>
             </Stack>
             <Box
             rounded={'lg'}
-            bg={useColorModeValue('white', 'gray.700')}
+            bg={squareBg}
             boxShadow={'lg'}
             p={8}>
             <Stack spacing={4}>

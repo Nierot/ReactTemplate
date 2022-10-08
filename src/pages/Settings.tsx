@@ -24,6 +24,8 @@ export default function Settings() {
 
   const toast = useToast()
 
+  const bgValue = useColorModeValue('white', 'purple.900')
+
   useEffect(() => {
     setTitle('Settings')
     getUserPreferences()
@@ -58,9 +60,10 @@ export default function Settings() {
     })
   }
 
-  if (loading) {
-    return <LoadingPage h="80vh" />
-  }
+  const loadingPage = <LoadingPage h="80vh"/>
+
+
+  if (loading) return loadingPage
 
   return <Stack spacing="24px">
     <HStack spacing="20px">
@@ -87,7 +90,7 @@ export default function Settings() {
 
     <Divider />
 
-    <Box bg={useColorModeValue('white', 'purple.900')} maxW="min-content" px="25px" py="10px" borderRadius="lg" borderWidth="1px" overflow="auto">
+    <Box bg={bgValue} maxW="min-content" px="25px" py="10px" borderRadius="lg" borderWidth="1px" overflow="auto">
       <FormControl>
         <FormLabel>Default page</FormLabel>
         <RadioGroup onChange={setDefaultPage} value={defaultPage}>
@@ -101,7 +104,7 @@ export default function Settings() {
 
     <Divider />
 
-    <Box bg={useColorModeValue('white', 'purple.900')} maxW="min-content" px="25px" py="10px" borderRadius="lg" borderWidth="1px" overflow="auto">
+    <Box bg={bgValue} maxW="min-content" px="25px" py="10px" borderRadius="lg" borderWidth="1px" overflow="auto">
       <FormControl>
         <FormLabel>Dark Mode</FormLabel>
         <RadioGroup onChange={setColorScheme} value={colorScheme}>
