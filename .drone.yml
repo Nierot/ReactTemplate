@@ -24,7 +24,7 @@ steps:
 - name: write-settings
   image: node
   commands:
-  - node write_config.js
+  - node write_config.cjs
 
 - name: deploy_staging
   image: node
