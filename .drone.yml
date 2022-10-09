@@ -34,6 +34,8 @@ steps:
   - name: deploy
     path: /app/deploy
   commands:
+  - ls /app
+  - ls /app/deploy
   - mv /app/dist/* /app/deploy
 
 - name: notify
