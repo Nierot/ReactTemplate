@@ -20,6 +20,7 @@ steps:
   commands:
   - npm install
   - npm run build
+  - ls -la
 
 - name: write-settings
   image: node
