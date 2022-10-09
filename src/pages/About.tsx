@@ -20,7 +20,7 @@ export default function About() {
         {config.app.name}
       </Heading>
       <Heading as="h2" size="xl">
-        {config.cicd.build.details.version}
+        {config.cicd.build.details.version}:{config.cicd.build.details.buildNumber}
       </Heading>
 
     </VStack>
@@ -42,7 +42,9 @@ export default function About() {
         Build on {new Date(config.cicd.build.details.buildDate * 1000).toLocaleString()}
       </Text>
       <Text>
-        Commit {config.cicd.build.details.commit}
+        Commit&nbsp;
+        <Link href={config.cicd.build.details.commitLink} color="purple.600" isExternal>{config.cicd.build.details.commit.slice(0, 7)}</Link>
+        &nbsp;on branch {config.cicd.build.details.branch}
       </Text>
       <Text>
         Questions? <Link href={"mailto://" + config.app.author.email} color="purple.600" isExternal>Contact us</Link>

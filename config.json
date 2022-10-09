@@ -18,8 +18,11 @@
       "details": {
         "gitUrl": "https://github.com/Nierot/ReactTemplate",
         "version": "1.0.0",
+        "branch": "staging",
         "buildDate": 1665245495,
-        "commit": "c9b0b5f"
+        "buildNumber": 44,
+        "commit": "1223f1b899763006da2ef1ed8be1b44616d0ad97",
+        "commitLink": "https://github.com/Nierot/ReactTemplate/commit/1223f1b899763006da2ef1ed8be1b44616d0ad97"
       }
     }
   }
