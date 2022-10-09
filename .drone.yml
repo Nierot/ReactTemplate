@@ -32,6 +32,7 @@ steps:
   - name: deploy_volume_staging
     path: /app/deploy
   commands:
+  - rm /app/deploy/assets/*.js /app/deploy/*.html /app/deploy/*.svg 
   - mv /app/dist/* /app/deploy
   when:
     branch:
@@ -44,6 +45,7 @@ steps:
   - name: deploy_volume_prod
     path: /app/deploy
   commands:
+  - rm /app/deploy/assets/*.js /app/deploy/*.html /app/deploy/*.svg 
   - mv /app/dist/* /app/deploy
   when:
     branch:
