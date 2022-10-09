@@ -51,5 +51,5 @@ steps:
 
 volumes:
 - name: deploy_volume
-  path:
-    host: /mnt/user/appdata/staging
+  host:
+    path: /mnt/user/appdata/staging
