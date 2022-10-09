@@ -24,7 +24,7 @@ steps:
 - name: write-settings
   image: node
   commands:
-    echo "TODO"
+  - echo "TODO"
 
 - name: deploy
   image: node
