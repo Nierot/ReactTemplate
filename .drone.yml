@@ -21,10 +21,10 @@ steps:
   - npm install
   - npm run build
 
-# - name: write-settings
-#   image: node
-#   commands:
-#   - echo "TODO"
+- name: write-settings
+  image: node
+  commands:
+  - node write_config.js
 
 - name: deploy_staging
   image: node
