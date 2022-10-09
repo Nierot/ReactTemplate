@@ -1,18 +1,18 @@
-import { ScaleFade, useColorMode } from '@chakra-ui/react';
-import { Models } from 'appwrite';
-import React, { useEffect, useState } from 'react';
-import { Route, Router, Switch, useLocation } from 'wouter';
-import SidebarWithHeader from './components/SidebarWithHeader';
-import About from './pages/About';
-import Auth from './pages/auth/Auth';
-import ForgotPassword from './pages/auth/ForgotPassword';
-import CleaingSchedule from './pages/CleaningSchedule';
-import Index from './pages/Index';
-import LoadingPage from './pages/LoadingPage';
-import NotFound from './pages/NotFound';
-import EditProfile from './pages/profile/EditProfile';
-import Settings from './pages/profile/Settings';
-import { getUserPreferences, UserPreferences } from './utils/user';
+import { ScaleFade, useColorMode } from '@chakra-ui/react'
+import { Models } from 'appwrite'
+import React, { useEffect, useState } from 'react'
+import { Route, Router, Switch, useLocation } from 'wouter'
+import SidebarWithHeader from './components/SidebarWithHeader'
+import About from './pages/About'
+import Auth from './pages/auth/Auth'
+import ForgotPassword from './pages/auth/ForgotPassword'
+import CleaingSchedule from './pages/CleaningSchedule'
+import Index from './pages/Index'
+import LoadingPage from './pages/LoadingPage'
+import NotFound from './pages/NotFound'
+import EditProfile from './pages/profile/EditProfile'
+import Settings from './pages/profile/Settings'
+import { getUserPreferences, UserPreferences } from './utils/user'
 
 type UIProps = {
   c: React.ReactNode

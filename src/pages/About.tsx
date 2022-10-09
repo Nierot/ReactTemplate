@@ -1,6 +1,6 @@
-import { Box, Center, Divider, Heading, Link, Text, useColorModeValue, VStack } from '@chakra-ui/react';
+import { Box, Center, Divider, Heading, Link, Text, useColorModeValue, VStack } from '@chakra-ui/react'
 import { useEffect } from 'react'
-import { getConfig, setTitle } from '../utils/utils';
+import { getConfig, setTitle } from '../utils/utils'
 
 
 export default function About() {
@@ -47,7 +47,7 @@ export default function About() {
         &nbsp;on branch {config.cicd.build.details.branch}
       </Text>
       <Text>
-        Questions? <Link href={"mailto://" + config.app.author.email} color="purple.600" isExternal>Contact us</Link>
+        Questions? <Link href={'mailto://' + config.app.author.email} color="purple.600" isExternal>Contact us</Link>
       </Text>
 
     </VStack>

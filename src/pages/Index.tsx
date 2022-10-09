@@ -1,6 +1,6 @@
-import { Heading } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react'
 import { useEffect } from 'react'
-import { setTitle } from '../utils/utils';
+import { setTitle } from '../utils/utils'
 
 export default function Index() {
   useEffect(() => {

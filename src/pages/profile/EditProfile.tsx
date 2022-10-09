@@ -12,15 +12,15 @@ import {
   IconButton,
   Center,
   useToast,
-} from '@chakra-ui/react';
-import { SmallCloseIcon } from '@chakra-ui/icons';
-import UploadButton from '../../components/UploadButton';
-import { useEffect, useRef, useState } from 'react';
-import { getConfig, setTitle } from '../../utils/utils';
-import { Models } from 'appwrite';
-import LoadingPage from '../LoadingPage';
-import { setUserPreferences } from '../../utils/user';
-import { useLocation } from 'wouter';
+} from '@chakra-ui/react'
+import { SmallCloseIcon } from '@chakra-ui/icons'
+import UploadButton from '../../components/UploadButton'
+import { useEffect, useState } from 'react'
+import { getConfig, setTitle } from '../../utils/utils'
+import { Models } from 'appwrite'
+import LoadingPage from '../LoadingPage'
+import { setUserPreferences } from '../../utils/user'
+import { useLocation } from 'wouter'
 
 export default function EditProfile(): JSX.Element {
 
@@ -154,7 +154,7 @@ export default function EditProfile(): JSX.Element {
           <FormLabel>User Icon</FormLabel>
           <Stack direction={['column', 'row']} spacing={6}>
             <Center>
-              <Avatar size="xl" src={userIcon?.toString() ?? "https://bit.ly/sage-adebayo"}>
+              <Avatar size="xl" src={userIcon?.toString() ?? 'https://bit.ly/sage-adebayo'}>
                 <AvatarBadge
                   as={IconButton}
                   size="sm"
@@ -219,7 +219,7 @@ export default function EditProfile(): JSX.Element {
             w="full"
             onClick={() => setLocation('/')}
             _hover={{
-              bgGradient: "linear(to-r, red.600, red.500, red.600)",
+              bgGradient: 'linear(to-r, red.600, red.500, red.600)',
             }}>
             Cancel
           </Button>
@@ -229,12 +229,12 @@ export default function EditProfile(): JSX.Element {
             w="full"
             onClick={save}
             _hover={{
-              bgGradient: "linear(to-l, purple.600, purple.500, purple.600)",
+              bgGradient: 'linear(to-l, purple.600, purple.500, purple.600)',
             }}>
             Save
           </Button>
         </Stack>
       </Stack>
     </Flex>
-  );
+  )
 }

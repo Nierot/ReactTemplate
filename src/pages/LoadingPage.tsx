@@ -1,4 +1,4 @@
-import { Center, Flex, Heading, Spinner, Stack, useColorModeValue } from '@chakra-ui/react';
+import { Spinner, Stack, useColorModeValue } from '@chakra-ui/react'
 
 type LoadingPageProps = {
   h?: string
