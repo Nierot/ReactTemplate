@@ -6,6 +6,11 @@ workspace:
   path: /app
 
 steps:
+- name: write-settings
+  image: node
+  commands:
+  - node write_config.cjs
+
 - name: build
   image: node
   environment:
@@ -21,17 +26,13 @@ steps:
   - npm install
   - npm run build
 
-# - name: write-settings
-#   image: node
-#   commands:
-#   - echo "TODO"
-
 - name: deploy_staging
   image: node
   volumes:
   - name: deploy_volume_staging
     path: /app/deploy
   commands:
+  - rm /app/deploy/assets/*.js /app/deploy/*.html /app/deploy/*.svg 
   - mv /app/dist/* /app/deploy
   when:
     branch:
@@ -44,6 +45,7 @@ steps:
   - name: deploy_volume_prod
     path: /app/deploy
   commands:
+  - rm /app/deploy/assets/*.js /app/deploy/*.html /app/deploy/*.svg 
   - mv /app/dist/* /app/deploy
   when:
     branch:
