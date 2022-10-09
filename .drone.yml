@@ -13,9 +13,9 @@ steps:
       from_secret: VITE_APPWRITE_COLLECTION_ID
     VITE_APPWRITE_USER_ICON_BUCKET_ID:
       from_secret: VITE_APPWRITE_USER_ICON_BUCKET_ID
-  volumes:
-  - name: deploy
-    path: /
+  # volumes:
+  # - name: deploy
+  #   path: /
   commands:
   - npm install
   - pwd
