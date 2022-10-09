@@ -21,7 +21,7 @@ steps:
   - npm install
   - npm run build
 
-- name: write settings
+- name: write-settings
   image: node
   commands:
     echo "TODO"
