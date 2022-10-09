@@ -23,15 +23,15 @@ steps:
   - ls -la
   - ls /app/dist
 
-- name: write-settings
-  image: node
-  commands:
-  - echo "TODO"
+# - name: write-settings
+#   image: node
+#   commands:
+#   - echo "TODO"
 
 - name: deploy
   image: node
   volumes:
-  - name: deploy
+  - name: deploy_volume
     path: /app/deploy
   commands:
   - ls /app
@@ -50,7 +50,6 @@ steps:
 
 
 volumes:
-- name: deploy
+- name: deploy_volume
   path:
-    host:
-      from_secret: deploy_dir
+    host: /mnt/user/appdata/staging
