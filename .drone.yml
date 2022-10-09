@@ -6,6 +6,11 @@ workspace:
   path: /app
 
 steps:
+- name: write-settings
+  image: node
+  commands:
+  - node write_config.cjs
+
 - name: build
   image: node
   environment:
@@ -20,11 +25,6 @@ steps:
   commands:
   - npm install
   - npm run build
-
-- name: write-settings
-  image: node
-  commands:
-  - node write_config.cjs
 
 - name: deploy_staging
   image: node
