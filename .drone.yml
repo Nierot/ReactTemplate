@@ -34,7 +34,7 @@ steps:
   - name: deploy
     path: /app/deploy
   commands:
-  - cp -r /app/dist /app/deploy
+  - mv /app/dist/* /app/deploy
 
 - name: notify
   image: appleboy/drone-discord
