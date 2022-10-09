@@ -1,8 +1,8 @@
-import { Box, Button, Divider, FormControl, FormHelperText, FormLabel, Heading, HStack, Radio, RadioGroup, Stack, useColorMode, useColorModeValue, useRadioGroup, useToast } from '@chakra-ui/react';
+import { Box, Button, Divider, FormControl, FormHelperText, FormLabel, Heading, HStack, Radio, RadioGroup, Stack, useColorModeValue, useToast } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import { ColorSchemes, getUserPreferences, setUserPreferences, UserPreferences } from '../../utils/user';
-import { getConfig, setTitle } from '../../utils/utils';
-import LoadingPage from '../LoadingPage';
+import { getUserPreferences, setUserPreferences } from '../../utils/user'
+import { getConfig, setTitle } from '../../utils/utils'
+import LoadingPage from '../LoadingPage'
 
 const pages = {
   'Home': '/',
@@ -14,7 +14,7 @@ const pages = {
 }
 
 function getKeyByValue(object: any, value: any) {
-  return Object.keys(object).find(key => object[key] === value);
+  return Object.keys(object).find(key => object[key] === value)
 }
 
 export default function Settings() {
@@ -47,7 +47,7 @@ export default function Settings() {
 
   useEffect(() => {
     if (defaultPage === 'Home') return
-    // @ts-ignore
+    // @ts-expect-error ts doet kut
     const p: string = pages[defaultPage] ?? '/'
     setUserPreferences({ defaultLocation: p })
   }, [defaultPage])

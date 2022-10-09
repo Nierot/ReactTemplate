@@ -32,13 +32,13 @@ const chakraTheme = extendTheme({
       variants: {
         solid: (props: any) => {
           const { colorScheme } = props
-          if (colorScheme !== "blue") {
+          if (colorScheme !== 'blue') {
             // @ts-ignore
             return origTheme.components.Alert.variants.solid(props)
           }
           return {
             container: {
-              bg: `purple.500`,
+              bg: 'purple.500',
             },
           }
         }
