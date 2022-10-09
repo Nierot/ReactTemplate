@@ -20,8 +20,6 @@ steps:
   commands:
   - npm install
   - npm run build
-  - ls -la
-  - ls /app/dist
 
 # - name: write-settings
 #   image: node
@@ -34,8 +32,6 @@ steps:
   - name: deploy_volume
     path: /app/deploy
   commands:
-  - ls /app
-  - ls /app/deploy
   - mv /app/dist/* /app/deploy
 
 - name: notify
@@ -52,4 +48,5 @@ steps:
 volumes:
 - name: deploy_volume
   host:
-    path: /mnt/user/appdata/staging
+    path: 
+      from_secret: deploy_dir
