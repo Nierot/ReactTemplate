@@ -47,6 +47,7 @@ export default function App() {
       })
       .then(load)
       .catch(() => {
+        console.log('not logged in')
         setLocation('/auth')
         load()
       })
@@ -56,26 +57,29 @@ export default function App() {
 
   if (loading) return loadingPage
 
-  return <Router base={import.meta.env.BASE_URL}>
+  return <Router>
     <ScaleFade initialScale={0.98} in={!loading}>
-      <SidebarWithHeader profile={profile!} icon={icon!}>
-        <Switch>
-          {/* Normal Routes */}
-          <Route path="/cleaning-schedule"> <CleaingSchedule /> </Route>
-          <Route path="/settings"> <Settings /> </Route>
+      <Switch>
 
-          {/* User profile */}
-          <Route path="/profile"> <EditProfile /> </Route>
-          <Route path="/about"> <About /> </Route>
+        {/* Pre-auth routes */}
+        <Route path="/auth/forgot-password"><ForgotPassword /></Route>
+        <Route path="/auth"><Auth /></Route>
 
-          {/* Pre-auth routes */}
-          <Route path="/auth/forgot-password"><ForgotPassword /></Route>
-          <Route path="/auth"><Auth /></Route>
+        <SidebarWithHeader profile={profile!} icon={icon!}>
+          <Switch>
+            {/* Normal Routes */}
+            <Route path="/cleaning-schedule"> <CleaingSchedule /> </Route>
+            <Route path="/settings"> <Settings /> </Route>
 
-          <Route path="/"> <Index /> </Route>        
-          <Route> <NotFound /> </Route>
-        </Switch>
-      </SidebarWithHeader>
+            {/* User profile */}
+            <Route path="/profile"> <EditProfile /> </Route>
+            <Route path="/about"> <About /> </Route>
+
+            <Route path="/"> <Index /> </Route>        
+            <Route path="/:rest*"> <NotFound /> </Route>
+          </Switch>
+        </SidebarWithHeader>
+      </Switch>
     </ScaleFade>
   </Router>
 

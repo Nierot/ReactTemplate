@@ -115,7 +115,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 };
 
 interface NavItemProps extends FlexProps {
-  icon: IconType;
+  icon?: IconType;
   children: string | number;
   link: string;
 }
@@ -152,8 +152,8 @@ const NavItem = ({ icon, children, link, ...rest }: NavItemProps) => {
 
 interface MobileProps extends FlexProps {
   onOpen: () => void;
-  profile: Models.Account<Models.Preferences>
-  icon: URL
+  profile?: Models.Account<Models.Preferences>
+  icon?: URL
 }
 const MobileNav = ({ onOpen, profile, icon, ...rest }: MobileProps) => {
   const { toggleColorMode } = useColorMode()
@@ -201,16 +201,16 @@ const MobileNav = ({ onOpen, profile, icon, ...rest }: MobileProps) => {
               <HStack>
                 <Avatar
                   size={'sm'}
-                  src={ icon.href ?? config.account.fallbackUserIcon }
+                  src={ icon?.href ?? config.account.fallbackUserIcon }
                 />
                 <VStack
                   display={{ base: 'none', md: 'flex' }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
-                  <Text fontSize="sm">{profile.name}</Text>
+                  <Text fontSize="sm">{profile?.name ?? 'Username'}</Text>
                   <Text fontSize="xs" color="gray.600">
-                    {profile.prefs.role ?? 'User'}
+                    {profile?.prefs.role ?? 'User'}
                   </Text>
                 </VStack>
                 <Box display={{ base: 'none', md: 'flex' }}>
