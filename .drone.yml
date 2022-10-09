@@ -62,6 +62,11 @@ steps:
       from_secret: discord_avatar_url
 
 
+trigger:
+  branch:
+  - prod
+  - staging
+
 volumes:
 - name: deploy_volume_staging
   host:
