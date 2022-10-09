@@ -21,6 +21,7 @@ steps:
   - npm install
   - npm run build
   - ls -la
+  - ls /app/dist
 
 - name: write-settings
   image: node
