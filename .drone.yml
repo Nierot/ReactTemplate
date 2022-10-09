@@ -26,13 +26,28 @@ steps:
 #   commands:
 #   - echo "TODO"
 
-- name: deploy
+- name: deploy_staging
   image: node
   volumes:
-  - name: deploy_volume
+  - name: deploy_volume_staging
     path: /app/deploy
   commands:
   - mv /app/dist/* /app/deploy
+  when:
+    branch:
+    - staging
+    - feature/*
+
+- name: deploy_prod
+  image: node
+  volumes:
+  - name: deploy_volume_prod
+    path: /app/deploy
+  commands:
+  - mv /app/dist/* /app/deploy
+  when:
+    branch:
+    - prod
 
 - name: notify
   image: appleboy/drone-discord
@@ -46,7 +61,9 @@ steps:
 
 
 volumes:
-- name: deploy_volume
+- name: deploy_volume_staging
   host:
-    path: 
-      from_secret: deploy_dir
+    path: /mnt/user/appdata/drone/volumes/rt_staging
+- name: deploy_volume_prod
+  host: 
+    path: /mnt/user/appdata/drone/volumes/rt
